@@ -5,5 +5,5 @@ install <br>
 `sudo apt-get install solc`<br>
 
 
-run
+run<br>
 `python3 deploy_sepo.py`
