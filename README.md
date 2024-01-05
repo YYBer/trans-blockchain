@@ -7,3 +7,6 @@ install <br>
 
 run<br>
 `python3 deploy_sepo.py`
+<br>
+
+etherscan: https://sepolia.etherscan.io/
