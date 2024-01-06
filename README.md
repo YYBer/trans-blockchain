@@ -1,9 +1,3 @@
-# approach
-
-1. DONE: dockerise 'main' and get it to run
-2. integrate 'blockchain_database_test', so that blockchain hash appears correctly in django admin console
-3. integrate into 'game_3d' when that is solid
-
 # how to use
 
 1. make an .env file in the root dir containing the variable BLOCKCHAIN_PRIVATE_KEY=<your private key>
