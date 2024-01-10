@@ -1,43 +1,22 @@
-all: up
+all: run
 
-up: build rund
+run:
+	python3 manage.py runserver
 
-down: stop
+migrate:
+	python3 manage.py makemigrations
+	python3 manage.py migrate
 
-build:
-	docker build -t database .
-
-runi: # doesn't exit correctly when using CTRL+C
-	docker run -it --rm -p 8000:8000 --name database-container database
-
-rund:
-	docker run -d -p 8000:8000 --name database-container database		
-
-stop:
-	docker stop database-container
-
-exec:
-	docker exec -it database-container /bin/bash
-
-prune:
-	docker system prune -af
-
-# deletes container instance, freeing up the resources it was consuming, such as disk space and network ports.
-rm_container: # only needed when using rund, removed automatically in runi (--rm)
-	docker rm database-container
-
-# remove Docker image from your local image registry (free disk space) 
-remove_image:
-	docker rmi database
-
-logs:
-	docker logs database-container
+clean:
+	rm -f db.sqlite3
+	make migrate
+	make su
+	
+su:
+	python3 manage.py createsuperuser
 
 test:
 	google-chrome http://127.0.0.1:8000/blockchainTestApp/blockchainTest/
 	
 admin:
 	google-chrome http://127.0.0.1:8000/admin
-
-
-.PHONY: all up down build run runi rund stop remove logs exec test admin
