@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import GameData
 from datetime import datetime
-from .deploy_sepo import tx_hash
+# from .deploy_sepo import tx_hash
 import time
 import random
 
