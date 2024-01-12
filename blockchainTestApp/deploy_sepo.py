@@ -1,13 +1,8 @@
 # import os
-<<<<<<< HEAD
 from compile_sepo import abi, bytecode
 from web3 import Web3
 # from views import result
-=======
-from blockchainTestApp.compile_sepo import abi, bytecode
-from web3 import Web3
-from blockchainTestApp.views import result
->>>>>>> origin/no_docker
+
 
 # solidity_directory = './blockchainTestApp'
 # os.chdir(solidity_directory)
@@ -19,32 +14,21 @@ provider_rpc = {
 web3 = Web3(Web3.HTTPProvider(provider_rpc["sepolia"]))
 
 account_from = {
-<<<<<<< HEAD
     'private_key': '4ae1cc01b339a6e3691f3df17392a1b49b25111ea4a828fc54edad7d29c111b2',
-=======
-    'private_key': '',
->>>>>>> origin/no_docker
+
     'address': '0xD20D8879EdC62684Ba82ebE37e97984Dd5Aae287',
 }
 address_to = '0x0C7f3ff8EFEB99053BEa51b041ec954BA26c4FD6'
 trans = web3.eth.contract(abi=abi, bytecode=bytecode)
-<<<<<<< HEAD
-#GameID player1_name player1_points player2_name player2_points
+
 result = "12443,zz03,yy12" 
-=======
-# result = "hello"
->>>>>>> origin/no_docker
 binary_result = result.encode('utf-8')
 construct_txn = trans.functions.save(binary_result).build_transaction(
     {
         "from": Web3.to_checksum_address(account_from["address"]),
         "nonce": web3.eth.get_transaction_count(Web3.to_checksum_address(account_from["address"])),
         "gas": 10000000,
-<<<<<<< HEAD
         "gasPrice": web3.to_wei('60','gwei'),
-=======
-        "gasPrice": web3.to_wei('50','gwei'),
->>>>>>> origin/no_docker
         "to": Web3.to_checksum_address(address_to),
     }
 )
@@ -54,11 +38,8 @@ tx_create = web3.eth.account.sign_transaction(
 )
 
 tx_hash = web3.eth.send_raw_transaction(tx_create.rawTransaction)
-<<<<<<< HEAD
 tx_receipt = web3.eth.wait_for_transaction_receipt(tx_hash, timeout=300)
-=======
-tx_receipt = web3.eth.wait_for_transaction_receipt(tx_hash)
->>>>>>> origin/no_docker
+
 
 print(f'Contact transaction hash {tx_hash.hex()}')
 # print(f"Contract deployed at address {tx_receipt.contractAddress}")
