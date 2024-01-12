@@ -1,6 +1,7 @@
 import os
 from compile_sepo import abi, bytecode
 from web3 import Web3
+import views
 # from .views import game_result
 from dotenv import load_dotenv
 
