@@ -11,8 +11,6 @@ class GameData(models.Model):
     game_duration_secs = models.PositiveIntegerField()
     is_tournament_game = models.BooleanField()
     blockchain_hash = models.CharField(max_length=64, null=True, blank=True)
+    
     def __str__(self):
         return str(self.game_id)
-        
-    # class Meta:
-    #     app_label = 'blockchainTestApp'
