@@ -1,5 +1,5 @@
 import os
-solcx.install_solc("0.8.23")
+# solcx.install_solc("0.8.23")
 from deploy_sepo import tx_hash
 
 print("abc!")
