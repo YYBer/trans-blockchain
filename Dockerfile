@@ -1,19 +1,12 @@
 FROM node:21
 WORKDIR /usr/blockchain
 RUN apt upgrade && apt update && apt install -y software-properties-common python3 python3-pip python3-launchpadlib nano && rm -rf /var/lib/apt/lists/*
-RUN npm install --save ethers
+# RUN npm install --save ethers
 RUN pip3 install web3 python-dotenv --break-system-packages
-# RUN pip3 install web3 py-solc-x solc-select python-dotenv --break-system-packages
 RUN pip3 install django-cors-headers --break-system-packages
 COPY config/requirements.txt .
 RUN pip3 install -r requirements.txt --break-system-packages
-#RUN add-apt-repository ppa:ethereum/ethereum -y && apt update
-# COPY solx.sh /usr/local/bin/
-# RUN chmod +x /usr/local/bin/solx.sh
-# RUN apt-get update && apt-get install -y software-properties-common
-# RUN add-apt-repository -y ppa:ethereum/ethereum
-# RUN apt-get update 
-# RUN apt-get install -y solc
+
 
 WORKDIR /
 RUN django-admin startproject blockchainTestProject
