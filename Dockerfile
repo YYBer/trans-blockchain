@@ -26,7 +26,7 @@ COPY configBlockchainTestApp/trans.bin ./blockchainTestApp
 # COPY configBlockchainTestApp/compile_sepo.py ./blockchainTestApp
 COPY configBlockchainTestApp/deploy_sepo.py ./blockchainTestApp
 COPY configBlockchainTestApp/execute.py ./blockchainTestApp
-COPY configBlockchainTestApp/testresult.py ./blockchainTestApp
+# COPY configBlockchainTestApp/testresult.py ./blockchainTestApp
 COPY config/manage.py .
 COPY config/.env .
 COPY config/entrypoint.sh .
