@@ -1,5 +1,5 @@
 # Instructions
-
+0. install web3 library `pip install web3`
 1. run `make` to start the server
 2. open chrome and go to `http://127.0.0.1:8000/blockchainTestApp/blockchainTest/graham/1/yy/4/` (or run `make test`)
 - this will add a record of game data to the database and should return the id of the record as a http response

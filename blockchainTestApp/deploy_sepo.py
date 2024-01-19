@@ -1,8 +1,7 @@
 import os
-print(f"I am here: {os.getcwd()}")
+# print(f"I am here: {os.getcwd()}")
 from web3 import Web3
 import json
-# from views import result
 
 with open('./blockchainTestApp/trans.abi', 'r') as abi_file:
     abi = json.load(abi_file)
@@ -11,7 +10,8 @@ with open('./blockchainTestApp/trans.bin', 'r') as bin_file:
 
 provider_rpc = {
     "development": "http://localhost:9944",
-    "sepolia": "https://eth-sepolia.g.alchemy.com/v2/9X0WvOag2Ac3dAO8p9rOiU6G95Xkg5zb",
+    # "sepolia": "https://eth-sepolia.g.alchemy.com/v2/9X0WvOag2Ac3dAO8p9rOiU6G95Xkg5zb",
+    "sepolia": "https://rpc.notadegen.com/eth/sepolia",
 }
 web3 = Web3(Web3.HTTPProvider(provider_rpc["sepolia"]))
 
@@ -22,17 +22,20 @@ account_from = {
 address_to = '0x0C7f3ff8EFEB99053BEa51b041ec954BA26c4FD6'
 trans = web3.eth.contract(abi=abi, bytecode=bytecode)
 current_nonce = web3.eth.get_transaction_count(account_from["address"])
-nonce = current_nonce + 1
-result = "11111,aa01,bb12" 
+# nonce = current_nonce + 1
+print(f"nonce: {current_nonce}")
+from .views import get_game_result
+result = get_game_result()
+print(f"game_result from views{result}")
 binary_result = result.encode('utf-8')
 construct_txn = trans.functions.save(binary_result).build_transaction(
     {
         "from": Web3.to_checksum_address(account_from["address"]),
         "nonce": web3.eth.get_transaction_count(Web3.to_checksum_address(account_from["address"])),
         "gas": 10000000,
-        "gasPrice": web3.to_wei('50','gwei'),
+        "gasPrice": web3.to_wei('65','gwei'),
         "to": Web3.to_checksum_address(address_to),
-        "nonce": nonce,
+        # "nonce": nonce,
     }
 )
 
@@ -41,7 +44,7 @@ tx_create = web3.eth.account.sign_transaction(
 )
 
 tx_hash = web3.eth.send_raw_transaction(tx_create.rawTransaction)
-tx_receipt = web3.eth.wait_for_transaction_receipt(tx_hash, timeout=300)
+# tx_receipt = web3.eth.wait_for_transaction_receipt(tx_hash, timeout=300)
 print(f'Contact transaction hash {tx_hash.hex()}')
 # print(f"Contract deployed at address {tx_receipt.contractAddress}")
 
