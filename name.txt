@@ -1,0 +1,37 @@
+function showNameInput() {
+    document.getElementById('startRemoteGameButton').style.display = 'none';
+    document.getElementById('nameInputSection').style.display = 'block';
+}
+
+// Function to show the canvas after submitting the name
+function submitNameAndStartGame() {
+    const playerName = document.getElementById('playerName').value;
+    if (playerName.trim() !== '') { // Check if name is not empty
+        document.getElementById('nameInputSection').style.display = 'none';
+        document.getElementById('game_board').style.display = 'block';
+    } else {
+        alert('Please enter a valid name.');
+    }
+
+    // Connect to the websocket
+    roomCode = document.getElementById("room_code").value;
+    char_choice = playerName;
+    connectionString =
+      "ws://" + window.location.host + "/ws/play/" + roomCode + "/" + char_choice + "/";
+    gameSocket = new WebSocket(connectionString);
+    console.log("[WebSocket starte] connectionString: ", connectionString);
+
+    // start the game
+    requestAnimationFrame(loop);
+
+    // Set the event handlers
+    gameSocket.onmessage = handleWebSocketOpen;
+    gameSocket.onclose = handleWebSocketClose;
+    gamePaused.onerror = handleWebSocketError;
+}
+
+// Event listener for the Start Game Button
+document.getElementById('startRemoteGameButton').addEventListener('click', showNameInput);
+
+// Event listener for the Submit Name Button
+document.getElementById('submitNameButton').addEventListener('click', submitNameAndStartGame);
