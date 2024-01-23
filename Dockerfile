@@ -1,11 +1,15 @@
-FROM node:21
+# FROM node:21
+FROM python:3.8-slim
 WORKDIR /usr/blockchain
 RUN apt upgrade && apt update && apt install -y software-properties-common python3 python3-pip python3-launchpadlib nano && rm -rf /var/lib/apt/lists/*
-# RUN npm install --save ethers
 RUN pip3 install web3 python-dotenv --break-system-packages
+RUN apt-get update && apt-get install -y --no-install-recommends gcc libpq-dev && rm -rf /var/lib/apt/lists/*
 RUN pip3 install django-cors-headers --break-system-packages
 COPY config/requirements.txt .
 RUN pip3 install -r requirements.txt --break-system-packages
+RUN apt-get update && apt-get install -y postgresql
+RUN apt-get install postgresql-client
+RUN pip install psycopg2
 
 
 WORKDIR /
@@ -23,17 +27,8 @@ COPY configBlockchainTestApp/views.py ./blockchainTestApp
 COPY configBlockchainTestApp/trans.sol ./blockchainTestApp
 COPY configBlockchainTestApp/trans.abi ./blockchainTestApp
 COPY configBlockchainTestApp/trans.bin ./blockchainTestApp
-# COPY configBlockchainTestApp/compile_sepo.py ./blockchainTestApp
 COPY configBlockchainTestApp/deploy_sepo.py ./blockchainTestApp
-COPY configBlockchainTestApp/execute.py ./blockchainTestApp
-# COPY configBlockchainTestApp/testresult.py ./blockchainTestApp
 COPY config/manage.py .
 COPY config/.env .
 COPY config/entrypoint.sh .
-# WORKDIR /blockchainA
-# COPY configBlockchainA/trans.sol .
-# COPY configBlockchainA/compile_sepo.py .
-# COPY configBlockchainA/deploy_sepo.py .
-# COPY configBlockchainA/execute.py .
-# COPY configBlockchainA/testresult.py .
 CMD ./entrypoint.sh

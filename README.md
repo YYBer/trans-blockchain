@@ -20,3 +20,9 @@ Now we can test the code from each of the branches...
 1. Run 'make exec' to be able to execute commands interactively inside the container
 2. Execute the command `cd blockchainTestApp; python3 deploy_sepo.py --host 0.0.0.0`. This should submit a transaction and return the hash (takes around 13 seconds)
 3. We can check it by opening https://sepolia.etherscan.io/ and searching for the hash
+
+in postgres to check the user
+`SELECT usename FROM pg_user;`
+
+in postgres to check the database
+`SELECT datname FROM pg_database;`

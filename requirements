@@ -143,3 +143,4 @@ xkit==0.0.0
 yarl==1.9.4
 zipp==1.0.0
 zope.interface==6.1
+decouple>=3.4,<4.0
