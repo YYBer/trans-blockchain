@@ -1,15 +1,12 @@
 import subprocess
 import pkg_resources
 import sys
-import getpass
 from selenium import webdriver
-# from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
-# from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
-# from selenium.common.exceptions import TimeoutException, NoSuchElementException
+import time
 
 def install(library_name):
     subprocess.check_call([sys.executable, "-m", "pip", "install", library_name])
@@ -28,38 +25,36 @@ def install_check(library_name):
         install(library_name)
         print(f"{library_name} installed successfully.")
 
+
 def open_chrome_and_start_game(url, player_name):
     driver = webdriver.Chrome()
     driver.get(url)
-    button_id = 'Start Remote Game'
-    # Wait for the button to be present on the page
-    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, button_id)))
-    
-    # Find the start_game button using its id and click it
-    start_game_button = driver.find_element(By.ID, button_id)
-    start_game_button.click()
-    print("Clicked the start_game button.")
+    time.sleep(2)
 
-    # Enter the player name
-    player_name_input = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'Emter your name')))
+    start_game_button = driver.find_element(By.ID, "startRemoteGameButton")
+    driver.execute_script("window.scrollBy(0, 500);")
+    time.sleep(1)
+    if start_game_button.text == "Start Remote Game":
+        start_game_button.click()
+
+    player_name_input = driver.find_element(By.ID, "playerName")
     player_name_input.send_keys(player_name)
 
-    # Choice the game type
-    match_selection = driver.find_element(By.ID, 'Match')
+    match_selection = driver.find_element(By.ID, 'room_code')
     match_selection.click()
-    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//select[@id='Match']/option[2]")))
-    match_dropdown = Select(driver.find_element(By.ID, 'Match'))
-    match_dropdown.select_by_index(1)
 
-    # Click the submit 
-    submit_button = driver.find_element(By.ID, 'Submit')
+    dropdown_selector = Select(match_selection)
+    WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, f"//select[@id='room_code']/option[@value='tournament']")))
+    dropdown_selector.select_by_value("tournament")
+
+    submit_button = driver.find_element(By.ID, "submitNameButton")
     submit_button.click()
+    time.sleep(1)
 
 
 if __name__ == "__main__":
     install_check("selenium")
-    install_check("pyautogui")
     open_chrome_and_start_game('http://127.0.0.1:8000/', "p1")
     open_chrome_and_start_game('http://127.0.0.1:8000/', "p2")
-    open_chrome_and_start_game('http://127.0.0.1:8000/', "p3")
-    open_chrome_and_start_game('http://127.0.0.1:8000/', "p4")
+    # open_chrome_and_start_game('http://127.0.0.1:8000/', "p3")
+    # open_chrome_and_start_game('http://127.0.0.1:8000/', "p4")
