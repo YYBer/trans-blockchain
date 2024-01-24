@@ -3,3 +3,6 @@ game:
 
 tour:
 	python3 trans_autotest_tournament.py
+
+test:
+	python3 test.py
