@@ -26,7 +26,6 @@ def install_check(library_name):
         install(library_name)
         print(f"{library_name} installed successfully.")
 
-
 def open_chrome_and_start_game(url, player_name):
     # driver = webdriver.Chrome()
     driver = webdriver.Firefox()
@@ -58,7 +57,7 @@ def open_chrome_and_start_game(url, player_name):
     finally:
         print("It's end")
     
-with ThreadPoolExecutor(max_workers=2) as executor:
+with ThreadPoolExecutor(max_workers=4) as executor:
     futures = [executor.submit(open_chrome_and_start_game, 'http://127.0.0.1:8000/', "p1"),
                executor.submit(open_chrome_and_start_game, 'http://127.0.0.1:8000/', "p2"),
                executor.submit(open_chrome_and_start_game, 'http://127.0.0.1:8000/', "p3"),
