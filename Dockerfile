@@ -6,10 +6,10 @@ RUN pip3 install web3 python-dotenv --break-system-packages
 RUN apt-get update && apt-get install -y --no-install-recommends gcc libpq-dev && rm -rf /var/lib/apt/lists/*
 RUN pip3 install django-cors-headers --break-system-packages
 COPY config/requirements.txt .
-RUN pip3 install -r requirements.txt --break-system-packages
-RUN apt-get update && apt-get install -y postgresql
-RUN apt-get install postgresql-client
-RUN pip install psycopg2
+RUN pip3 install -r requirements.txt --break-system-packages \
+    && apt-get update && apt-get install -y postgresql \
+    && apt-get install postgresql-client \
+    && pip install psycopg2
 
 
 WORKDIR /
