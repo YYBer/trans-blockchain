@@ -26,6 +26,8 @@ def install_check(library_name):
         install(library_name)
         print(f"{library_name} installed successfully.")
 
+install_check("selenium")
+
 def open_chrome_and_start_game(url, player_name):
     # driver = webdriver.Chrome()
     driver = webdriver.Firefox()
